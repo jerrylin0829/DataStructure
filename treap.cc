@@ -99,67 +99,6 @@ TreapNode* insert(TreapNode* root, int key)
         return root;
 }
 
-/* Recursive implementation of Delete() */
-TreapNode* deleteNode(TreapNode* root, int key)
-{
-        if (root == NULL)
-                return root;
-
-        if (key < root->key)
-                root->left = deleteNode(root->left, key);
-        else if (key > root->key)
-                root->right = deleteNode(root->right, key);
-
-        // IF KEY IS AT ROOT
-
-        // If left is NULL
-        else if (root->left == NULL)
-        {
-                TreapNode *temp = root->right;
-                delete(root);
-                root = temp;  // Make right child as root
-        }
-
-        // If Right is NULL
-        else if (root->right == NULL)
-        {
-                TreapNode *temp = root->left;
-                delete(root);
-                root = temp;  // Make left child as root
-        }
-
-        // If ksy is at root and both left and right are not NULL
-        else if (root->left->priority < root->right->priority)
-        {
-                root = leftRotate(root);
-                root->left = deleteNode(root->left, key);
-        }
-        else
-        {
-                root = rightRotate(root);
-                root->right = deleteNode(root->right, key);
-        }
-
-        return root;
-}
-
-// A utility function to print tree
-void inorder(TreapNode* root)
-{
-        if (root)
-        {
-                inorder(root->left);
-                cout << "key: "<< root->key << " | priority: %d "
-                        << root->priority;
-                if (root->left)
-                        cout << " | left child: " << root->left->key;
-                if (root->right)
-                        cout << " | right child: " << root->right->key;
-                cout << endl;
-                inorder(root->right);
-        }
-}
-
 int main(){
 
         random_device rd;
